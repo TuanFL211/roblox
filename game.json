@@ -1,0 +1,42 @@
+[
+    {
+        "name": "Liên Quân Mobile",
+        "image": "https://via.placeholder.com/300x150.png?text=Liên+Quân+Mobile",
+        "download": "https://download.lienquan.garena.com"
+    },
+    {
+        "name": "PUBG Mobile",
+        "image": "https://via.placeholder.com/300x150.png?text=PUBG+Mobile",
+        "download": "https://www.pubgmobile.com/download.html"
+    },
+    {
+        "name": "Genshin Impact",
+        "image": "https://via.placeholder.com/300x150.png?text=Genshin+Impact",
+        "download": "https://genshin.hoyoverse.com/en/download"
+    },
+    {
+        "name": "Free Fire",
+        "image": "https://via.placeholder.com/300x150.png?text=Free+Fire",
+        "download": "https://ff.garena.com/download/"
+    },
+    {
+        "name": "Roblox",
+        "image": "https://via.placeholder.com/300x150.png?text=Roblox",
+        "download": "https://www.roblox.com/download"
+    },
+    {
+        "name": "Mobile Legends",
+        "image": "https://via.placeholder.com/300x150.png?text=Mobile+Legends",
+        "download": "https://m.mobilelegends.com/en/download"
+    },
+    {
+        "name": "Clash of Clans",
+        "image": "https://via.placeholder.com/300x150.png?text=Clash+of+Clans",
+        "download": "https://supercell.com/en/games/clashofclans/"
+    },
+    {
+        "name": "Call of Duty Mobile",
+        "image": "https://via.placeholder.com/300x150.png?text=COD+Mobile",
+        "download": "https://www.callofduty.com/mobile"
+    }
+]
