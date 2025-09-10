@@ -1286,12 +1286,12 @@
             <section id="lienket" class="content-section active">
                 <h2>ROBLOX LITE & FIX LAG</h2>
                 <button class="json-load-btn" onclick="loadGamesFromJSON()">
-                    <i class="fas fa-download"></i> Tải game từ JSON
+                    <i class="fas fa-download"></i> Load lại
                 </button>
                 <div class="game-grid" id="game-container">
                     <div class="loading">
                         <i class="fas fa-gamepad"></i>
-                        <span>Chưa có game nào. Hãy tải game từ JSON!</span>
+                        <span>Chưa có game nào. Hãy LH Tuann</span>
                     </div>
                 </div>
             </section>
@@ -1308,7 +1308,7 @@
 
             <section id="home" class="content-section">
                 <h2>THÔNG TIN NHÀ PHÁT TRIỂN</h2>
-                <p class="cre">Cre: Tuan_FL và cộng sự ❤️</p>
+                <p class="cre">Cre: Tuan_FL và....</p>
                 
                 <button class="dev-btn" onclick="openPasswordModal()">
                     <i class="fas fa-code"></i> Phát triển
@@ -1484,37 +1484,10 @@
             gameContainer.innerHTML = `
                 <div class="loading">
                     <i class="fas fa-spinner"></i>
-                    <span>Đang tải game từ JSON...</span>
+                    <span>Đang loadd...</span>
                 </div>
             `;
-            
-            // Dữ liệu game mẫu
-            const games = [
-                {
-                    "name": "Roblox Lite",
-                    "image": "https://i.imgur.com/8UwZv8q.png",
-                    "download": "https://example.com/roblox-lite",
-                    "date": "2023-11-15"
-                },
-                {
-                    "name": "Blox Fruits",
-                    "image": "https://i.imgur.com/a1b2c3d.png",
-                    "download": "https://example.com/blox-fruits",
-                    "date": "2023-11-10"
-                },
-                {
-                    "name": "Arsenal",
-                    "image": "https://i.imgur.com/d4e5f6g.png",
-                    "download": "https://example.com/arsenal",
-                    "date": "2023-11-05"
-                },
-                {
-                    "name": "Piggy",
-                    "image": "https://i.imgur.com/g7h8i9j.png",
-                    "download": "https://example.com/piggy",
-                    "date": "2023-10-28"
-                }
-            ];
+
             
             if (Array.isArray(games)) {
                 allGames = games;
@@ -1578,7 +1551,7 @@
                         gameContainer.innerHTML = `
                             <div class="loading">
                                 <i class="fas fa-gamepad"></i>
-                                <span>Chưa có game nào. Hãy tải game từ JSON!</span>
+                                <span>Chưa có game nào. Hãy LH Tuann!</span>
                             </div>
                         `;
                         return;
