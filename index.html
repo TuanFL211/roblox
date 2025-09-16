@@ -72,7 +72,7 @@
             flex: 1;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
-            padding-bottom: 65px;
+            padding-bottom: 85px;
             padding-top: 20px;
         }
 
@@ -181,21 +181,25 @@
             display: block;
         }
 
-        .bottom-nav {
+        /* Floating Navigation */
+        .floating-nav {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             background: var(--nav-bg);
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.15);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
             display: flex;
             justify-content: space-around;
-            padding: 10px 0;
+            padding: 12px;
             z-index: 1000;
-            height: 60px;
+            height: 70px;
+            border-radius: 35px;
+            width: 90%;
+            max-width: 500px;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            transform: translateZ(0);
+            transform: translateX(-50%) translateZ(0);
         }
 
         .nav-btn {
@@ -205,20 +209,20 @@
             background: none;
             border: none;
             color: rgba(255,255,255,0.7);
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             cursor: pointer;
-            padding: 5px 10px;
-            border-radius: 15px;
+            padding: 8px 12px;
+            border-radius: 20px;
             transition: var(--transition);
-            width: 75px;
-            height: 45px;
+            width: 80px;
+            height: 50px;
             justify-content: center;
         }
 
         .nav-btn.active-nav {
             background: rgba(255,255,255,0.15);
             color: white;
-            transform: translateY(-3px);
+            transform: translateY(-5px);
         }
 
         .nav-btn:hover {
@@ -227,8 +231,116 @@
         }
 
         .nav-btn i {
-            font-size: 1.1rem;
-            margin-bottom: 3px;
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+
+        .search-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .search-btn:hover {
+            background: var(--primary);
+            transform: translateY(-3px) rotate(10deg);
+        }
+
+        .search-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--card-bg);
+            box-shadow: 0 5px 15px var(--shadow);
+            z-index: 2000;
+            padding: 15px;
+            display: none;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .search-container.active {
+            display: flex;
+            transform: translateY(0);
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid var(--secondary);
+            border-radius: 10px;
+            background: var(--card-bg);
+            color: var(--text-color);
+            font-size: 1rem;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .close-search {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 24px;
+            cursor: pointer;
+            margin-left: 15px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .close-search:hover {
+            background: var(--light);
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: var(--card-bg);
+            box-shadow: 0 5px 15px var(--shadow);
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+            z-index: 2001;
+        }
+
+        .search-results.active {
+            display: block;
+        }
+
+        .search-result-item {
+            padding: 15px;
+            border-bottom: 1px solid var(--light);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-result-item:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .search-result-item.highlighted {
+            background: var(--primary);
+            color: white;
         }
 
         .game-grid {
@@ -758,6 +870,7 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
+            position: relative;
         }
 
         .music-player-title {
@@ -974,6 +1087,43 @@
             color: var(--text-color);
         }
 
+        /* Theme toggle moved down */
+        .theme-toggle-bottom {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            z-index: 999;
+        }
+
+        .theme-toggle-bottom .toggle-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .theme-toggle-bottom .toggle-btn i {
+            margin-right: 0;
+            font-size: 1.2rem;
+        }
+
+        /* Highlight effect for searched game */
+        .game-card.highlighted {
+            animation: highlightPulse 2s infinite;
+            box-shadow: 0 0 20px var(--accent);
+            border: 2px solid var(--accent);
+        }
+
+        @keyframes highlightPulse {
+            0% { box-shadow: 0 0 10px var(--accent); }
+            50% { box-shadow: 0 0 20px var(--accent); }
+            100% { box-shadow: 0 0 10px var(--accent); }
+        }
+
         @media (max-width: 768px) {
             .game-grid {
                 grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -996,7 +1146,7 @@
             
             .container {
                 padding: 15px;
-                padding-bottom: 65px;
+                padding-bottom: 85px;
             }
             
             .content-section {
@@ -1013,19 +1163,27 @@
                 right: 10px;
             }
 
-            .bottom-nav {
-                height: 55px;
-                padding: 8px 0;
+            .floating-nav {
+                width: 95%;
+                height: 65px;
+                padding: 10px;
+                bottom: 15px;
             }
 
             .nav-btn {
                 width: 70px;
                 font-size: 0.65rem;
-                padding: 4px 8px;
+                padding: 6px 10px;
+                height: 45px;
             }
 
             .nav-btn i {
-                font-size: 1rem;
+                font-size: 1.1rem;
+            }
+
+            .search-btn {
+                width: 45px;
+                height: 45px;
             }
 
             #ticker-banner {
@@ -1050,6 +1208,11 @@
             .modal-title {
                 font-size: 1.3rem;
             }
+
+            .theme-toggle-bottom {
+                bottom: 80px;
+                right: 15px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1069,18 +1232,24 @@
                 width: 50px;
             }
 
-            .bottom-nav {
-                height: 50px;
+            .floating-nav {
+                height: 60px;
             }
 
             .nav-btn {
-                width: 65px;
+                width: 60px;
                 font-size: 0.6rem;
-                padding: 3px 6px;
+                padding: 5px 8px;
+                height: 40px;
             }
 
             .nav-btn i {
-                font-size: 0.9rem;
+                font-size: 1rem;
+            }
+
+            .search-btn {
+                width: 40px;
+                height: 40px;
             }
 
             section h2 {
@@ -1105,10 +1274,20 @@
             .modal-title {
                 font-size: 1.2rem;
             }
+
+            .theme-toggle-bottom {
+                bottom: 75px;
+                right: 10px;
+            }
+
+            .theme-toggle-bottom .toggle-btn {
+                width: 45px;
+                height: 45px;
+            }
         }
 
         @supports (padding: max(0px)) {
-            .bottom-nav {
+            .floating-nav {
                 padding-bottom: max(10px, env(safe-area-inset-bottom));
             }
         }
@@ -1148,15 +1327,10 @@
             color: var(--primary);
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
         @keyframes float {
             0% { transform: translateY(0px) rotate(0deg); }
             50% { transform: translateY(-10px) rotate(2deg); }
-            to { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
         }
 
         .kitty-header-left {
@@ -1172,7 +1346,7 @@
 <body>
     <div id="ticker-banner">
         <div class="ticker-content">
-            <span>🎮 Chào mừng bạn đến với web hack lite and roblox lite cree: Tuan_FL 🎮</span>
+            <span>🎮 ROBLOX LITE - Tối ưu hiệu suất & fix lag - Phiên bản mới nhất 2025! 🎮</span>
         </div>
         <button id="close-ticker">&times;</button>
     </div>
@@ -1268,6 +1442,13 @@
         </div>
     </div>
 
+    <!-- Search Container -->
+    <div class="search-container" id="searchContainer">
+        <input type="text" class="search-input" id="searchInput" placeholder="Tìm kiếm game...">
+        <button class="close-search" id="closeSearch">&times;</button>
+        <div class="search-results" id="searchResults"></div>
+    </div>
+
     <div class="container">
         <header>
             <img src="https://i.imgur.com/Z57QCYN.png" class="kitty-header-left" alt="Hello Kitty">
@@ -1276,12 +1457,6 @@
             <div class="header-content">
                 <h1>ROBLOX LITE</h1>
                 <div class="header-subtitle">tối ưu hiệu suất & fix lag</div>
-            </div>
-            
-            <div class="theme-toggle">
-                <button class="toggle-btn" id="theme-toggle">
-                    <i class="fas fa-moon"></i> Chế độ tối
-                </button>
             </div>
         </header>
 
@@ -1311,7 +1486,7 @@
 
             <section id="home" class="content-section">
                 <h2>THÔNG TIN NHÀ PHÁT TRIỂN</h2>
-                <p class="cre">Cre: Tuan_FL và....</p>
+                <p class="cre">Cre: Tuan_FL vàChiLinhRBL</p>
                 
                 <button class="dev-btn" onclick="openPasswordModal()">
                     <i class="fas fa-code"></i> Phát triển
@@ -1393,7 +1568,7 @@
                                 <i class="fab fa-facebook"></i>
                             </a>
                             <a href="#" class="social-btn" target="_blank">
-                                <i class="fab fa-instagram"></i>
+                                <i class="fab fa-tiktok"></i>
                             </a>
                         </div>
                     </div>
@@ -1402,7 +1577,8 @@
         </main>
     </div>
 
-    <nav class="bottom-nav">
+    <!-- Floating Navigation -->
+    <nav class="floating-nav">
         <button class="nav-btn active-nav" onclick="showSection('lienket')">
             <i class="fas fa-gamepad"></i>
             <span>Liên Kết</span>
@@ -1411,16 +1587,27 @@
             <i class="fas fa-users"></i>
             <span>Nhóm</span>
         </button>
+        <button class="search-btn" id="searchBtn">
+            <i class="fas fa-search"></i>
+        </button>
         <button class="nav-btn" onclick="showSection('home')">
             <i class="fas fa-info-circle"></i>
-            <span>home</span>
+            <span>Home</span>
         </button>
     </nav>
+
+    <!-- Theme Toggle Bottom -->
+    <div class="theme-toggle-bottom">
+        <button class="toggle-btn" id="theme-toggle">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
 
     <script>
         // Biến toàn cục lưu trữ danh sách game
         let allGames = [];
         let currentDownloadUrl = '';
+        let currentHighlightedGame = null;
 
         // Biến cho trình phát nhạc
         let audioPlayer = new Audio();
@@ -1520,7 +1707,17 @@
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('active-nav');
             });
-            event.currentTarget.classList.add('active-nav');
+            
+            // Tìm nút tương ứng với section và kích hoạt nó
+            const navButtons = document.querySelectorAll('.nav-btn');
+            for (let btn of navButtons) {
+                if (btn.querySelector('span').textContent.toLowerCase() === 
+                    (sectionId === 'lienket' ? 'liên kết' : 
+                     sectionId === 'group' ? 'nhóm' : 'home')) {
+                    btn.classList.add('active-nav');
+                    break;
+                }
+            }
             
             document.querySelector('.container').scrollTo(0, 0);
         }
@@ -1531,17 +1728,17 @@
                 themeToggle.addEventListener('click', () => {
                     document.body.classList.toggle('dark-mode');
                     if (document.body.classList.contains('dark-mode')) {
-                        themeToggle.innerHTML = '<i class="fas fa-sun"></i> Chế độ sáng';
+                        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
                         localStorage.setItem('theme', 'dark');
                     } else {
-                        themeToggle.innerHTML = '<i class="fas fa-moon"></i> Chế độ tối';
+                        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
                         localStorage.setItem('theme', 'light');
                     }
                 });
 
                 if (localStorage.getItem('theme') === 'dark') {
                     document.body.classList.add('dark-mode');
-                    themeToggle.innerHTML = '<i class="fas fa-sun"></i> Chế độ sáng';
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
                 }
             }
         }
@@ -1562,9 +1759,10 @@
                         return;
                     }
                     
-                    allGames.forEach(game => {
+                    allGames.forEach((game, index) => {
                         const gameCard = document.createElement('div');
                         gameCard.className = 'game-card';
+                        gameCard.id = `game-${index}`;
                         
                         // Format lại ngày tháng cho đẹp
                         let formattedDate = 'Chưa cập nhật';
@@ -2069,6 +2267,115 @@
             return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
         }
 
+        // ===== CHỨC NĂNG TÌM KIẾM =====
+        function setupSearch() {
+            const searchBtn = document.getElementById('searchBtn');
+            const searchContainer = document.getElementById('searchContainer');
+            const closeSearch = document.getElementById('closeSearch');
+            const searchInput = document.getElementById('searchInput');
+            const searchResults = document.getElementById('searchResults');
+            
+            // Mở tìm kiếm
+            searchBtn.addEventListener('click', () => {
+                searchContainer.classList.add('active');
+                searchInput.focus();
+            });
+            
+            // Đóng tìm kiếm
+            closeSearch.addEventListener('click', () => {
+                searchContainer.classList.remove('active');
+                searchInput.value = '';
+                searchResults.classList.remove('active');
+                searchResults.innerHTML = '';
+                
+                // Bỏ highlight nếu có
+                if (currentHighlightedGame) {
+                    currentHighlightedGame.classList.remove('highlighted');
+                    currentHighlightedGame = null;
+                }
+            });
+            
+            // Tìm kiếm khi nhập
+            searchInput.addEventListener('input', () => {
+                const query = searchInput.value.toLowerCase().trim();
+                
+                if (query.length === 0) {
+                    searchResults.classList.remove('active');
+                    searchResults.innerHTML = '';
+                    return;
+                }
+                
+                // Lọc kết quả
+                const filteredGames = allGames.filter(game => 
+                    game.name.toLowerCase().includes(query)
+                );
+                
+                // Hiển thị kết quả
+                if (filteredGames.length > 0) {
+                    searchResults.innerHTML = '';
+                    filteredGames.forEach((game, index) => {
+                        const resultItem = document.createElement('div');
+                        resultItem.className = 'search-result-item';
+                        resultItem.textContent = game.name;
+                        resultItem.addEventListener('click', () => {
+                            // Chuyển sang tab Liên Kết
+                            showSection('lienket');
+                            
+                            // Tìm và highlight game được chọn
+                            setTimeout(() => {
+                                const gameIndex = allGames.findIndex(g => g.name === game.name);
+                                if (gameIndex !== -1) {
+                                    const gameElement = document.getElementById(`game-${gameIndex}`);
+                                    if (gameElement) {
+                                        // Bỏ highlight cũ
+                                        if (currentHighlightedGame) {
+                                            currentHighlightedGame.classList.remove('highlighted');
+                                        }
+                                        
+                                        // Highlight game mới
+                                        gameElement.classList.add('highlighted');
+                                        currentHighlightedGame = gameElement;
+                                        
+                                        // Cuộn đến game
+                                        gameElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                        
+                                        // Đóng tìm kiếm
+                                        searchContainer.classList.remove('active');
+                                        searchInput.value = '';
+                                        searchResults.classList.remove('active');
+                                        searchResults.innerHTML = '';
+                                        
+                                        // Tự động bỏ highlight sau 5 giây
+                                        setTimeout(() => {
+                                            if (currentHighlightedGame) {
+                                                currentHighlightedGame.classList.remove('highlighted');
+                                                currentHighlightedGame = null;
+                                            }
+                                        }, 5000);
+                                    }
+                                }
+                            }, 100);
+                        });
+                        searchResults.appendChild(resultItem);
+                    });
+                    searchResults.classList.add('active');
+                } else {
+                    searchResults.innerHTML = '<div class="search-result-item">Không tìm thấy kết quả</div>';
+                    searchResults.classList.add('active');
+                }
+            });
+            
+            // Đóng tìm kiếm khi nhấn ESC
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && searchContainer.classList.contains('active')) {
+                    searchContainer.classList.remove('active');
+                    searchInput.value = '';
+                    searchResults.classList.remove('active');
+                    searchResults.innerHTML = '';
+                }
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             initGames(); // Khởi tạo dữ liệu game từ file JSON
             setupThemeToggle();
@@ -2076,6 +2383,7 @@
             setupTickerBanner();
             setupAnimationToggle(); // Thiết lập nút tắt hoạt ảnh
             setupMusicPlayer(); // Thiết lập trình phát nhạc
+            setupSearch(); // Thiết lập chức năng tìm kiếm
         });
     </script>
 </body>
