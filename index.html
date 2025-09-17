@@ -897,6 +897,7 @@
         .music-player {
             display: none;
             text-align: left;
+            padding: 15px;
         }
 
         .music-player.active {
@@ -907,6 +908,7 @@
         .now-playing {
             margin-bottom: 15px;
             font-size: 0.9rem;
+            display: none;
         }
 
         .now-playing span {
@@ -1022,6 +1024,7 @@
             align-items: center;
             gap: 10px;
             margin-top: 15px;
+            display: none;
         }
 
         .volume-slider {
@@ -1104,6 +1107,7 @@
             justify-content: center;
             padding: 0;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background: var(--primary);
         }
 
         .theme-toggle-bottom .toggle-btn i {
@@ -1463,9 +1467,7 @@
         <main>
             <section id="lienket" class="content-section active">
                 <h2>ROBLOX LITE & FIX LAG</h2>
-                <button class="json-load-btn" onclick="loadGamesFromJSON()">
-                    <i class="fas fa-download"></i> Load lại
-                </button>
+                <!-- Đã xóa hai nút "Load lại từ JSON" và "Load từ LocalStorage" -->
                 <div class="game-grid" id="game-container">
                     <div class="loading">
                         <i class="fas fa-gamepad"></i>
@@ -1652,19 +1654,14 @@
             }
         }
 
-        // Hàm khởi tạo dữ liệu game từ file JSON bên ngoài
+        // Hàm khởi tạo dữ liệu game - ưu tiên tải từ JSON trước
         function initGames() {
-            // Tải game từ file JSON bên ngoài
-            loadGamesFromJSON();
-        }
-
-        // Hàm tải game từ tệp JSON bên ngoài
-        function loadGamesFromJSON() {
+            // Hiển thị trạng thái đang tải
             const gameContainer = document.getElementById('game-container');
             gameContainer.innerHTML = `
                 <div class="loading">
                     <i class="fas fa-spinner"></i>
-                    <span>Đang tải game...</span>
+                    <span>Đang tải game từ JSON...</span>
                 </div>
             `;
 
@@ -1679,21 +1676,47 @@
                 .then(games => {
                     if (Array.isArray(games)) {
                         allGames = games;
+                        // Lưu vào localStorage
+                        localStorage.setItem('gamesData', JSON.stringify(allGames));
                         loadGames();
-                        alert('Đã tải ' + games.length + ' game từ file JSON.');
+                        console.log('Đã tải dữ liệu game từ file JSON:', allGames.length, 'game');
                     } else {
                         throw new Error('Dữ liệu JSON không hợp lệ');
                     }
                 })
                 .catch(error => {
-                    console.error('Lỗi khi tải game:', error);
-                    gameContainer.innerHTML = `
-                        <div class="loading">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            <span>Lỗi khi tải game: ${error.message}</span>
-                        </div>
-                    `;
+                    console.error('Lỗi khi tải game từ JSON:', error);
+                    // Nếu có lỗi, thử tải từ localStorage
+                    loadGamesFromLocalStorage();
                 });
+        }
+
+        // Hàm tải game từ localStorage
+        function loadGamesFromLocalStorage() {
+            const storedGames = localStorage.getItem('gamesData');
+            
+            if (storedGames) {
+                try {
+                    allGames = JSON.parse(storedGames);
+                    loadGames();
+                    console.log('Đã tải dữ liệu game từ localStorage:', allGames.length, 'game');
+                } catch (error) {
+                    console.error('Lỗi khi parse dữ liệu từ localStorage:', error);
+                    showError('Không thể tải dữ liệu game. Vui lòng thử lại sau.');
+                }
+            } else {
+                showError('Không có dữ liệu game. Vui lòng liên hệ quản trị viên.');
+            }
+        }
+
+        function showError(message) {
+            const gameContainer = document.getElementById('game-container');
+            gameContainer.innerHTML = `
+                <div class="loading">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>${message}</span>
+                </div>
+            `;
         }
 
         function showSection(sectionId) {
@@ -2377,7 +2400,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            initGames(); // Khởi tạo dữ liệu game từ file JSON
+            initGames(); // Tự động tải dữ liệu game khi mở web
             setupThemeToggle();
             preventZoom();
             setupTickerBanner();
